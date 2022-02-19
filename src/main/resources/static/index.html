@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+		</script>
+		<style>
+			header
+			 {
+ 		 		background-color: rgb(0, 0, 255);
+ 		 		padding: 0.01%;
+ 		 		text-align: center;
+ 		 		font-size: 30px;
+ 				color:rgb(168, 210, 131);
+			}
+			.customer-details {
+  				 float: left;
+ 				 width: 30%;
+ 			 	height: 5%; 
+ 				 background: green;
+ 				 text-align: center;
+ 				 margin : 10px 100px;
+ 			
+			}
+			table, th, td {
+	  			border: 1px solid black;
+	  			border-collapse: collapse;
+			}
+			.add-customer {
+  				display: none; 
+  				position: fixed; 
+  				left: 0;
+ 				top: 0;
+  				width: 100%; 
+ 				height: 100%; 
+  				overflow: auto; 
+				background-color: rgb(0,0,0);
+		  		background-color: rgba(0,0,0,0.4); 
+				padding-top: 60px;
+			}
+			.edit-customer{
+				display:none;
+				position:fixed;
+				left:0;
+				top:0;
+				width:100%;
+				height:100%;
+				overflow:auto;
+				background-color:rgb(0,0,0);
+		  		background-color: rgba(0,0,0,0.4); 
+		  		padding-top:60px;
+			}
+
+
+			.customer-content {
+ 				background-color: #fefefe;
+ 			 	margin: 5% auto 15% auto;
+  				border: 1px solid #888;
+  				width: 50%; 
+  				height:50%
+			}
+			.cancelbtn {
+  				 width: auto;
+ 			 	padding: 10px 18px;
+ 			 
+			}
+			.button {
+  				float: left;
+  				padding: 20px 20px;
+ 				width: 20%;
+ 				height:5%;
+ 				margin: 14px 20px;
+			}
+			button {
+ 				margin: 5px 10px;
+			}
+			.container {
+  				padding: 16px;
+  				margin:60px 200px;	
+			}
+			
+		</style>
+	</head>	
+	<body>
+		<header>
+			<h1>
+				Blue tree			
+			</h1>
+		</header>
+		<br>
+		
+		<div class="customer-details">
+				<h3>  Customer details</h3>
+		</div>
+		<div >
+			<button type="button" class="button" onclick="openCustomerForm()" style="width:auto;">Add customer</button>
+		</div>			
+			<div id="addCustomer" class="add-customer">
+
+  				<div class="customer-content">
+    					<div class="container">
+      						<label for="uid"><b>Id :</b></label>
+     					 	<input type="text" name="uid" id="uid">
+     					 	<br><br>
+
+      						<label for="uname"><b>Name :</b></label>
+      						<input type="text" name="uname" id="uname">
+      						<br><br>
+      						
+      						<label for="uemail"><b>emailId :</b></label>
+      						<input type="text" name="uemail" id="uemail">
+      						<br><br>
+      					
+      						<label for="udbob"><b>DOB :</b></label>
+      						<input type="date" name="udob" id="udob">
+      						<br><br>
+      					
+      						<label for="usalary"><b>Salary :</b></label>
+      						<input type="text" name="usalary" id="usalary">
+      						<br><br>
+      					
+      						<b> Status :</b>
+      						<input type="radio" name="ustatus" id="ustatustrue" value="true" >
+      						<label for="active">true</label>
+      						<input type="radio" name="ustatus" id="ustatusfalse" value="false">
+      						<label for="in-active">false</label>
+      					
+      						<br><br>
+      						<button  class="cancelbtn" onclick="addCustomerDetails()">add</button>
+        					<button   onclick="cancel()" class="cancelbtn">Cancel</button>	
+    					</div>
+ 				</div>
+			</div>
+			<br>
+			<div style="margin:100px 30px;">
+				<table style="width:70%" id="table">
+					<tr>
+						<th style="width:5%;">Id</th>
+						<th style="width:20%;">Name</th>
+						<th style="width:30%;">Email</th>
+						<th style="width:20%;">Date of birth</th>
+						<th style="width:5%;">Age</th>
+						<th style="width:5%;">status</th>
+						<th style="width:15%;">salary</th>
+						<th style="width:10%;">Edit details</th>
+						<th style="width:10%;">delete details</th>
+					</tr>
+					
+				</table>
+			</div>
+			<div id="editCustomer" class="edit-customer">
+  
+  				<div class="customer-content" >
+
+    					<div class="container">
+      						<label for="eid"><b>Id :</b></label>
+     						 <input type="text" id="eid" name="eid">
+     						 <br><br>
+	
+      						<label for="ename"><b>Name :</b></label>
+      						<input type="text" id="ename" name="ename">
+      						<br><br>
+      						
+      						<label for="email"><b>emailId :</b></label>
+      						<input type="text" id="email" name="email">
+      						<br><br>
+      					
+      						<label for="edob"><b>DOB :</b></label>
+      						<input type="date" id="edob" name="edob">
+      						<br><br>
+      					
+      						<label for="esalary"><b>Salary :</b></label>
+      						<input type="text" id="esalary" name="esalary">
+      						<br><br>
+      					
+      						<b> Status :</b>
+      						<input type="radio" name="estatus" id="estatustrue" value=true>
+      						<label for="active">true</label>
+      						<input type="radio" name="estatus" id="estatusfalse" value=false>
+      						<label for="in-active">false</label>
+      					
+      						<br><br>
+      					
+      						<button class="cancelbtn" onclick="editCustomerDetails($('#eid').val())">add</button>
+        					<button type="button" onclick="cancel()" class="cancelbtn">Cancel</button>
+    					</div>
+    				</div>
+    			</div>
+    		
+			<script>
+				var customerDetails=[
+  				]
+  				$(document).ready(function(){
+  					getDataFromDB();
+  				});
+  					function getDataFromDB(){
+  					//GET request
+  					$.ajax({
+  						url:"http://localhost:8080/employee",
+  						type:"GET",
+  						dataType:"json",
+  						contentType:"application/json",
+  						crossDomain:true,
+  						success: function(data){
+  							console.log("server data");
+  							for(let index in data){
+  								var customerData;
+  								customerData={id:data[index].id,name:data[index].name,email:data[index].email,dob:data[index].dob,age:data[index].age,salary:data[index].salary,status:data[index].status,edit:data[index].id,delete:data[index].id};
+  								console.log("temp="+data[index].name);
+  								customerDetails.push(customerData);
+  							}
+  							console.log(customerData);
+  							addTable();
+  						}
+  					});
+  					}
+  					function addCustomerDetails(){
+  	  					var customer={id:$("#uid").val(),name:$("#uname").val(),email:$("#uemail").val(),dob:$("#udob").val(),salary:$("#usalary").val(),status:$('input[name="ustatus"]:checked').val()};
+  	  					$("#addCustomer").hide();
+  	  					console.log("data want to be add"+customer.email);
+  	  					//POST request
+  	  					$(document).ready(function(){
+  	  						$.ajax({
+  			  					url:"http://localhost:8080/employee",
+  			  					type:"POST",
+  			  					dataType:"json",
+  			  					contentType:"application/json",
+  			  					data : JSON.stringify(customer),
+  			  					success: function(data){
+  			  						console.log("data added="+data);
+  			  						$(addCustomer).hide();
+  			  						location.reload(true);
+  			  						
+  			  					},
+  			  					error: function(data){
+  			  						console.log("have some problem= "+data);
+  			  						location.reload(true);
+  			  					}
+  			  				});	
+  	  					});
+  	  				}
+  					function editCustomerDetails(index){
+  	  					console.log("edit index="+index);
+  	  					for(let i=0;i<customerDetails.length;i++){
+  	  						if(customerDetails[i].id==index){
+  	  							console.log("the="+customerDetails[i].id);
+  	  							 customerDetails[i].id=index;
+  	  							 customerDetails[i].name=$("#ename").val();
+  	  							 customerDetails[i].email=$("#email").val();
+  	  							customerDetails[i].dob=$("#edob").val();
+  	  							customerDetails[i].salary=$("#esalary").val();
+  	  							customerDetails[i].status=$("#estatus").val();
+  	  							console.log("afterDelete="+customerDetails);
+  	  							
+  	  							//POST request
+  	  	  	  					$(document).ready(function(){
+  	  	  	  						$.ajax({
+  	  	  			  					url:"http://localhost:8080/employee",
+  	  	  			  					type:"PUT",
+  	  	  			  					dataType:"json",
+  	  	  			  					contentType:"application/json",
+  	  	  			  					data : JSON.stringify(customerDetails[i]),
+  	  	  			  					success: function(data){
+  	  	  			  						console.log("data updated="+data);
+  	  	  			  						$("#editCustomer").hide();
+  	  	  			  						location.reload(true);
+  	  	  			  						
+  	  	  			  					},
+  	  	  			  					error: function(data){
+  	  	  			  						console.log("have some problem= "+data);
+  	  	  			  						location.reload(true);
+  	  	  			  					}
+  	  	  			  				});	
+  	  	  	  					});
+  	  						}
+  	  					}
+  	  				}
+  					function deleteConfirm(index) {      
+  	  					alert("Are you sure want to delete this customer");
+  	  					//DELETE request
+  	  					$(document).ready(function(){
+  		  						$.ajax({
+  				  					url:"http://localhost:8080/employee/"+customerDetails[index].id,
+  				  					type:"DELETE",
+  				  					dataType:"json",
+  				  					contentType:"application/json",
+  				  					success: function(data){
+  				  						console.log("data deleted="+data);
+  				  						location.reload(true);
+  				  					},
+  				  					error: function(data){
+  				  						console.log("have some problem with delete= "+data);
+  				  						location.reload(true);
+  				  					}
+  				  				});	
+  		  					});
+  	  				}
+  				
+  					function addTable(){
+						for(let i=0;i<customerDetails.length;i++){
+							if(customerDetails[i].id!=""){
+  							var deleteTable="<td><button id=\"del"+i+"\" onclick=\"deleteConfirm("+i+")\">delete</td> ";
+  	  						var editTable="<td><button  id=\"edt"+i+"\" onclick=\"editCustomerForm("+i+")\" style=\"width:auto;\">edit</td>";
+  							$("table").append("<tr><td>"+customerDetails[i].id+"</td><td>"+customerDetails[i].name+"</td><td>"+customerDetails[i].email+"</td><td>"+customerDetails[i].dob+"</td><td>"+customerDetails[i].age+"</td><td>"+customerDetails[i].status+"</td><td>"+customerDetails[i].salary+"</td>"+editTable+deleteTable+"</tr>");
+							}
+						}
+  				};
+  				function openCustomerForm() {	
+  					$("#addCustomer").show();
+  				}
+  				function editCustomerForm(index){
+  					console.log("index = "+index);
+  					console.log(customerDetails);
+  					$("#eid").val(customerDetails[index].id);
+  					$("#ename").val(customerDetails[index].name);
+  					$("#email").val(customerDetails[index].email);
+  					$("#edob").val(customerDetails[index].dob);
+  					$("#esalary").val(customerDetails[index].salary);
+  					$("#estatus").val(customerDetails[index].status);
+  					$("#editCustomer").show();
+  				}
+				
+  				function cancel(){
+  					$("#addCustomer").hide();
+  					$("#editCustomer").hide();
+  				}
+  				
+	     	     </script>
+	</body>	
+</html>
