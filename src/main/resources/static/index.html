@@ -1,8 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 		</script>
+		 <meta charset="utf-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+		
 		<style>
 			header
 			 {
@@ -58,46 +63,45 @@
   				width: 50%; 
   				height:50%
 			}
-			.cancelbtn {
-  				 width: auto;
- 			 	padding: 10px 18px;
- 			 
-			}
-			.button {
-  				float: left;
-  				padding: 20px 20px;
- 				width: 20%;
- 				height:5%;
- 				margin: 14px 20px;
-			}
+		
 			button {
  				margin: 5px 10px;
 			}
-			.container {
-  				padding: 16px;
-  				margin:60px 200px;	
-			}
+			
 			
 		</style>
 	</head>	
 	<body>
+	
 		<header>
+		<div class="container-fluid col-sm p-3">
 			<h1>
 				Blue tree			
 			</h1>
+			</div>
 		</header>
+		
 		<br>
 		
-		<div class="customer-details">
-				<h3>  Customer details</h3>
+		<div class="row" >
+			<div class="col-sm-6 m-3"> 
+				<h3 style="text-align:right;">  Customer details</h3>
+			</div>
+			<div class="col-sm-1 m-3">
+			<button type="button" class="btn btn-outline-primary btn-sm " onclick="openCustomerForm()" >Add customer</button>
 		</div>
-		<div >
-			<button type="button" class="button" onclick="openCustomerForm()" style="width:auto;">Add customer</button>
 		</div>			
-			<div id="addCustomer" class="add-customer">
-
-  				<div class="customer-content">
-    					<div class="container">
+		
+			<br>
+			<div class="container">
+				<div id="customerDetails" class="row">
+			</div>
+			</div>
+				<div id="addCustomer" class="row add-customer" style="padding-top:8.5%;">
+			<div class="row">
+			
+			<div class="col-sm-3"></div>
+				<div class="col-sm-6 col-md-6 p-5" style="background-color: #fefefe;">
       						<label for="uid"><b>Id :</b></label>
      					 	<input type="text" name="uid" id="uid">
      					 	<br><br>
@@ -125,33 +129,18 @@
       						<label for="in-active">false</label>
       					
       						<br><br>
-      						<button  class="cancelbtn" onclick="addCustomerDetails()">add</button>
-        					<button   onclick="cancel()" class="cancelbtn">Cancel</button>	
+      						<button  class="btn btn-outline-success btn-sm " onclick="addCustomerDetails()">add</button>
+        					<button   onclick="cancel()" class="btn btn-outline-danger btn-sm">Cancel</button>	
     					</div>
  				</div>
 			</div>
-			<br>
-			<div style="margin:100px 30px;">
-				<table style="width:70%" id="table">
-					<tr>
-						<th style="width:5%;">Id</th>
-						<th style="width:20%;">Name</th>
-						<th style="width:30%;">Email</th>
-						<th style="width:20%;">Date of birth</th>
-						<th style="width:5%;">Age</th>
-						<th style="width:5%;">status</th>
-						<th style="width:15%;">salary</th>
-						<th style="width:10%;">Edit details</th>
-						<th style="width:10%;">delete details</th>
-					</tr>
-					
-				</table>
-			</div>
-			<div id="editCustomer" class="edit-customer">
-  
-  				<div class="customer-content" >
-
-    					<div class="container">
+			
+			
+				<div id="editCustomer" class="row edit-customer" style="padding-top:8.5%;">
+			<div class="row">
+			
+			<div class="col-sm-3"></div>
+				<div class="col-sm-6 col-md-6 p-5" style="background-color: #fefefe;">
       						<label for="eid"><b>Id :</b></label>
      						 <input type="text" id="eid" name="eid">
      						 <br><br>
@@ -173,16 +162,17 @@
       						<br><br>
       					
       						<b> Status :</b>
-      						<input type="radio" name="estatus" id="estatustrue" value=true>
+      						<input type="radio" name="estatus" id="estatustrue" value=true >
       						<label for="active">true</label>
       						<input type="radio" name="estatus" id="estatusfalse" value=false>
       						<label for="in-active">false</label>
       					
       						<br><br>
       					
-      						<button class="cancelbtn" onclick="editCustomerDetails($('#eid').val())">add</button>
-        					<button type="button" onclick="cancel()" class="cancelbtn">Cancel</button>
+      						<button class="btn btn-outline-success btn-sm " onclick="editCustomerDetails($('#eid').val())">update</button>
+        					<button type="button" onclick="cancel()" class="btn btn-outline-danger btn-sm ">Cancel</button>
     					</div>
+    					
     				</div>
     			</div>
     		
@@ -296,11 +286,13 @@
   	  				}
   				
   					function addTable(){
+  						
 						for(let i=0;i<customerDetails.length;i++){
+							
 							if(customerDetails[i].id!=""){
-  							var deleteTable="<td><button id=\"del"+i+"\" onclick=\"deleteConfirm("+i+")\">delete</td> ";
-  	  						var editTable="<td><button  id=\"edt"+i+"\" onclick=\"editCustomerForm("+i+")\" style=\"width:auto;\">edit</td>";
-  							$("table").append("<tr><td>"+customerDetails[i].id+"</td><td>"+customerDetails[i].name+"</td><td>"+customerDetails[i].email+"</td><td>"+customerDetails[i].dob+"</td><td>"+customerDetails[i].age+"</td><td>"+customerDetails[i].status+"</td><td>"+customerDetails[i].salary+"</td>"+editTable+deleteTable+"</tr>");
+  							var deleteTable="<button class=\"btn btn-outline-danger btn-sm\" id=\"del"+i+"\" onclick=\"deleteConfirm("+i+")\">Delete </button>";
+  	  						var editTable="<button  class=\"btn btn-outline-info btn-sm\" id=\"edt"+i+"\" onclick=\"editCustomerForm("+i+")\" style=\"width:auto;\">edit</button>";
+  							$("#customerDetails").append("<div class=\"row p-3 border\"><div class=\"col-sm-6 col-md-4\"><b>Id:</b>"+customerDetails[i].id+"</div><div class=\"col-sm-6 col-md-4\"><b>Name:</b>"+customerDetails[i].name+"</div><div class=\"col-sm-12 col-md-4\"><b>Date of birth:</b>"+customerDetails[i].dob+"</div><div class=\"col-sm-6 col-md-4\"><b>Mail:</b>"+customerDetails[i].email+"</div><div class=\"col-sm-6 col-md-4\"><b>Age:</b>"+customerDetails[i].age+"</div><div class=\"col-sm-6 col-md-4\"><b>Status:</b>"+customerDetails[i].status+"</div><div class=\"col-sm-6 col-md-12\"><b>Salary:</b>"+customerDetails[i].salary+"</div><div class=\"col-sm-6 col-md-4\"><b>Edit:</b>"+editTable+"</div><div class=\"col-sm-6 col-md-4\"><b>Delete:</b>"+deleteTable+"</div></div>");
 							}
 						}
   				};
@@ -313,9 +305,10 @@
   					$("#eid").val(customerDetails[index].id);
   					$("#ename").val(customerDetails[index].name);
   					$("#email").val(customerDetails[index].email);
-  					$("#edob").val(customerDetails[index].dob);
+  					var date=customerDetails[index].dob.toString();
+  					$("#edob").val(date.substring(0,10));
   					$("#esalary").val(customerDetails[index].salary);
-  					$("#estatus").val(customerDetails[index].status);
+  					
   					$("#editCustomer").show();
   				}
 				
